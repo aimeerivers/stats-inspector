@@ -1,0 +1,38 @@
+{
+  "name": "stats-inspector",
+  "description": "Stats inspector",
+  "version": "0.0.1",
+  "private": false,
+  "dependencies": {
+    "express": "^4.8.2",
+    "logfmt": "^1.1.2"
+  },
+  "engines": {
+    "node": "0.10.30"
+  },
+  "main": "app.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sermoa/stats-inspector.git"
+  },
+  "keywords": [
+    "stats",
+    "inspector",
+    "istats",
+    "rdot",
+    "echo",
+    "dax",
+    "rum",
+    "conviva"
+  ],
+  "author": "aimee rivers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sermoa/stats-inspector/issues"
+  },
+  "homepage": "https://github.com/sermoa/stats-inspector"
+}
