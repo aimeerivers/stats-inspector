@@ -16,9 +16,24 @@ app.get('/', function(req, res) {
   res.render("index");
 });
 
-app.get('/o.gif', function(req, res) {
-  io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
-  res.send(' ');
-});
+// iStatsAV / LiveStats
+respondTo('/o.gif');
+
+// DAx
+respondTo('/bbc/int/s');
+respondTo('/bbc/bbc/s');
+
+// Echo
+respondTo('/bbc/nkdata/s');
+
+// Rdot
+respondTo('/e/**');
+
+function respondTo(route) {
+  app.get(route, function(req, res) {
+    io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
+    res.send(' ');
+  });
+}
 
 console.log("Listening on " + port);
