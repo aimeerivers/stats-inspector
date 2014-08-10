@@ -37,7 +37,10 @@ function respondTo(route) {
   app.get(route, function(req, res) {
     io.sockets.emit('ipconnection', { ip: req.ip });
     io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
-    res.send(' ');
+    var img = new Buffer(35);
+    img.write("R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=", "base64");
+    res.writeHead(200, {'Content-Type': 'image/gif' });
+    res.end(img, 'binary');
   });
 }
 
