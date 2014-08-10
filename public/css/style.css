@@ -7,16 +7,32 @@ h1 {
 }
 
 #stats {
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid #bbb;
 }
 
 #stats .stat {
   padding: 1em;
-  border-top: 1px solid lightgray;
+  border-top: 1px solid #bbb;
+}
+
+#stats .stat {
+  background-image: -webkit-gradient(
+    linear,
+    left top,
+    left bottom,
+    color-stop(0, #fcfcfc),
+    color-stop(1, #fff)
+  );
+  background-image: -o-linear-gradient(bottom, #fcfcfc 0%, #fff 100%);
+  background-image: -moz-linear-gradient(bottom, #fcfcfc 0%, #fff 100%);
+  background-image: -webkit-linear-gradient(bottom, #fcfcfc 0%, #fff 100%);
+  background-image: -ms-linear-gradient(bottom, #fcfcfc 0%, #fff 100%);
+  background-image: linear-gradient(to bottom, #fcfcfc 0%, #fff 100%);
 }
 
 #stats .stat h2.type {
   cursor: pointer;
+  margin: 0;
 }
 
 #stats .stat.istats .type {
@@ -66,4 +82,5 @@ h1 {
   background-color: #eee;
   border: 1px solid #bbb;
   overflow-wrap: break-word;
+  margin-bottom: 1em;
 }
