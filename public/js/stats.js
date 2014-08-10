@@ -106,6 +106,9 @@ function IStatsRequest(request) {
   return {
     type: 'iStats',
     params: function() {
+      if(this._cachedParams) {
+        return this._cachedParams;
+      }
       var rsParams = this._rsParams();
       var queryParams = '';
       for(var i = 0; i < rsParams.length; i++) {
@@ -115,7 +118,9 @@ function IStatsRequest(request) {
         }
       }
       var standardParams = this._standardParams(queryParams);
-      return rsParams.concat(standardParams);
+      var params = rsParams.concat(standardParams);
+      this._cachedParams = params;
+      return params;
     },
     _standardParams: function(queryString) {
       var params = [];
@@ -146,6 +151,9 @@ function LiveStatsRequest(request) {
   return {
     type: 'LiveStats',
     params: function() {
+      if(this._cachedParams) {
+        return this._cachedParams;
+      }
       var params = [];
       var keysAndValues = this._queryString().split('~RS~');
       keysAndValues.pop();
@@ -153,6 +161,7 @@ function LiveStatsRequest(request) {
       for(var i = 0; i < keysAndValues.length - 1; i += 2) {
         params.push({key: keysAndValues[i], val: decodeURIComponent(keysAndValues[i+1])});
       }
+      this._cachedParams = params;
       return params;
     },
     _queryString: function() {
@@ -166,11 +175,15 @@ function DaxRequest(request) {
   return {
     type: 'DAx',
     params: function() {
+      if(this._cachedParams) {
+        return this._cachedParams;
+      }
       var params = [];
       this._queryString().split('&').forEach(function(pair) {
         var arr = pair.split('=');
         params.push({key: arr[0], val: decodeURIComponent(arr[1])});
       });
+      this._cachedParams = params;
       return params;
     },
     _queryString: function() {
@@ -184,6 +197,9 @@ function RdotRequest(request) {
   return {
     type: 'Rdot',
     params: function() {
+      if(this._cachedParams) {
+        return this._cachedParams;
+      }
       var queryString = this._queryString().split('?');
       var parts = queryString[0].split('/');
       var params = [
@@ -200,6 +216,7 @@ function RdotRequest(request) {
         var arr = pair.split('=');
         params.push({key: arr[0], val: decodeURIComponent(arr[1])});
       });
+      this._cachedParams = params;
       return params;
     },
     _queryString: function() {
