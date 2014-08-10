@@ -11,18 +11,26 @@ window.onload = function() {
         var holder = document.createElement('div');
         holder.className = 'stat ' + stat.type.toLowerCase();
 
+        var callout = document.createElement('div');
+        callout.className = 'callout';
+
         var type = document.createElement('h2');
         type.className = 'type';
         type.innerHTML = stat.type;
         type.addEventListener('click', function(e) {
-          var toggle = e.srcElement.nextSibling;
+          var toggle = e.srcElement.parentNode.nextSibling;
           if(toggle.className.indexOf('hidden') == -1) {
             toggle.className = 'toggle hidden';
           } else {
             toggle.className = 'toggle';
           }
         });
-        holder.appendChild(type);
+        callout.appendChild(type);
+
+        var headline = document.createElement('div');
+        headline.className = 'headline';
+        headline.innerHTML = stat.headline();
+        callout.appendChild(headline);
 
         var toggler = document.createElement('div');
         toggler.className = 'toggle hidden';
@@ -67,6 +75,7 @@ window.onload = function() {
         toggler.appendChild(rawHeader);
         toggler.appendChild(raw);
 
+        holder.appendChild(callout);
         holder.appendChild(toggler);
         statsDiv.appendChild(holder);
       }
@@ -199,7 +208,7 @@ function DaxRequest(request) {
         if(params[i].key === 'control_id')
           controlId = params[i].val;
       }
-      return [actionType, controlId].join(' ');
+      return [actionType, controlId].join(' - ');
     },
     params: function() {
       if(this._cachedParams) {

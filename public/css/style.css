@@ -30,9 +30,21 @@ h1 {
   background-image: linear-gradient(to bottom, #fcfcfc 0%, #fff 100%);
 }
 
+#stats .stat .callout {
+  display: table-row;
+}
+
 #stats .stat h2.type {
+  display: table-cell;
+  width: 150px;
   cursor: pointer;
   margin: 0;
+}
+
+#stats .stat .headline {
+  display: table-cell;
+  color: #aaa;
+  vertical-align: middle;
 }
 
 #stats .stat.istats .type {
