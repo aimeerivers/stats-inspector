@@ -15,7 +15,12 @@ window.onload = function() {
         type.className = 'type';
         type.innerHTML = stat.type;
 
+        var raw = document.createElement('div');
+        raw.className = 'raw';
+        raw.innerHTML = stat.raw;
+
         holder.appendChild(type);
+        holder.appendChild(raw);
         statsDiv.appendChild(holder);
       }
     } else {

@@ -31,3 +31,12 @@ h1 {
 #stats .stat.rdot .type {
   color: rgb(111, 208, 110);
 }
+
+#stats .stat .raw {
+  font-size: 0.75em;
+  color: #888;
+  padding: 0.5em;
+  background-color: #eee;
+  border: 1px solid #bbb;
+  overflow-wrap: break-word;
+}
