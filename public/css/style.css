@@ -15,6 +15,10 @@ h1 {
   border-top: 1px solid lightgray;
 }
 
+#stats .stat h2.type {
+  cursor: pointer;
+}
+
 #stats .stat.istats .type {
   color: rgb(76, 198, 249);
 }
@@ -29,6 +33,10 @@ h1 {
 
 #stats .stat.rdot .type {
   color: rgb(111, 208, 110);
+}
+
+#stats .toggle.hidden {
+  display: none;
 }
 
 #stats table.params {

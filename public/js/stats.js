@@ -14,7 +14,18 @@ window.onload = function() {
         var type = document.createElement('h2');
         type.className = 'type';
         type.innerHTML = stat.type;
+        type.addEventListener('click', function(e) {
+          var toggle = e.srcElement.nextSibling;
+          if(toggle.className.indexOf('hidden') == -1) {
+            toggle.className = 'toggle hidden';
+          } else {
+            toggle.className = 'toggle';
+          }
+        });
         holder.appendChild(type);
+
+        var toggler = document.createElement('div');
+        toggler.className = 'toggle hidden';
 
         var paramsCache = stat.params();
         if(paramsCache.length > 0) {
@@ -44,8 +55,8 @@ window.onload = function() {
 
           var paramsHeader = document.createElement('h3');
           paramsHeader.innerHTML = 'Parameters';
-          holder.appendChild(paramsHeader);
-          holder.appendChild(paramsTable);
+          toggler.appendChild(paramsHeader);
+          toggler.appendChild(paramsTable);
         }
 
         var raw = document.createElement('div');
@@ -53,9 +64,10 @@ window.onload = function() {
         raw.innerHTML = stat.raw;
         var rawHeader = document.createElement('h3');
         rawHeader.innerHTML = 'Full request';
-        holder.appendChild(rawHeader);
-        holder.appendChild(raw);
+        toggler.appendChild(rawHeader);
+        toggler.appendChild(raw);
 
+        holder.appendChild(toggler);
         statsDiv.appendChild(holder);
       }
     } else {
