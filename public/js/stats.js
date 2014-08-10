@@ -31,8 +31,12 @@ window.onload = function() {
 }
 
 function StatsRequest(request) {
-  if(request.indexOf('/o.gif') === 0)
-    return IStatsRequest(request);
+  if(request.indexOf('/o.gif') === 0) {
+    if(request.indexOf('~RS~q~RS~0~') === -1)
+      return IStatsRequest(request);
+    else
+      return LiveStatsRequest(request);
+  }
 
   if(request.indexOf('/bbc/int/s') === 0 || request.indexOf('/bbc/bbc/s') === 0)
     return DaxRequest(request);
@@ -53,6 +57,13 @@ function BasicRequest(request) {
 function IStatsRequest(request) {
   return {
     type: 'iStats',
+    raw: request
+  }
+}
+
+function LiveStatsRequest(request) {
+  return {
+    type: 'LiveStats',
     raw: request
   }
 }

@@ -24,6 +24,10 @@ h1 {
   color: rgb(76, 198, 249);
 }
 
+#stats .stat.livestats .type {
+  color: rgb(153, 0, 0);
+}
+
 #stats .stat.dax .type {
   color: rgb(254, 174, 5);
 }
