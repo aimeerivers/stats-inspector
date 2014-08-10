@@ -7,11 +7,16 @@ window.onload = function() {
     if(data.stat && data.ip) {
       if(data.ip === window.ip) {
         var stat = StatsRequest(data.stat);
-        var html = document.createElement('div');
-        var content = document.createElement('p');
-        content.innerHTML = stat.type + ' ' + stat.raw;
-        html.appendChild(content);
-        statsDiv.appendChild(html);
+
+        var holder = document.createElement('div');
+        holder.className = 'stat ' + stat.type.toLowerCase();
+
+        var type = document.createElement('div');
+        type.className = 'type';
+        type.innerHTML = stat.type;
+
+        holder.appendChild(type);
+        statsDiv.appendChild(holder);
       }
     } else {
       console.log("There is a problem:", data);

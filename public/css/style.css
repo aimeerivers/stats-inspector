@@ -5,3 +5,29 @@
 h1 {
   border-bottom: 3px double black;
 }
+
+#stats {
+  border-bottom: 1px solid lightgray;
+}
+
+#stats .stat {
+  padding: 1em;
+  border-top: 1px solid lightgray;
+}
+
+#stats .stat .type {
+  font-weight: bold;
+  font-size: 1.5em;
+}
+
+#stats .stat.istats .type {
+  color: rgb(76, 198, 249);
+}
+
+#stats .stat.dax .type {
+  color: rgb(254, 174, 5);
+}
+
+#stats .stat.rdot .type {
+  color: rgb(111, 208, 110);
+}
