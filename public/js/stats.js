@@ -14,13 +14,41 @@ window.onload = function() {
         var type = document.createElement('div');
         type.className = 'type';
         type.innerHTML = stat.type;
+        holder.appendChild(type);
+
+        var paramsCache = stat.params();
+        if(paramsCache.length > 0) {
+          var paramsTable = document.createElement('table');
+          paramsTable.className = 'params';
+
+          var headerRow = document.createElement('tr');
+          var headerKey = document.createElement('th');
+          headerKey.innerHTML = 'Key';
+          var headerVal = document.createElement('th');
+          headerVal.innerHTML = 'Value';
+          headerRow.appendChild(headerKey);
+          headerRow.appendChild(headerVal);
+          paramsTable.appendChild(headerRow);
+
+          for(var i = 0; i < paramsCache.length; i++) {
+            var value = paramsCache[i];
+            var row = document.createElement('tr');
+            var key = document.createElement('td');
+            key.innerHTML = value.key;
+            var val = document.createElement('td');
+            val.innerHTML = value.val;
+            row.appendChild(key);
+            row.appendChild(val);
+            paramsTable.appendChild(row);
+          }
+          holder.appendChild(paramsTable);
+        }
 
         var raw = document.createElement('div');
         raw.className = 'raw';
         raw.innerHTML = stat.raw;
-
-        holder.appendChild(type);
         holder.appendChild(raw);
+
         statsDiv.appendChild(holder);
       }
     } else {
@@ -50,6 +78,7 @@ function StatsRequest(request) {
 function BasicRequest(request) {
   return {
     type: 'unknown',
+    params: function() { return []; },
     raw: request
   }
 }
@@ -57,6 +86,7 @@ function BasicRequest(request) {
 function IStatsRequest(request) {
   return {
     type: 'iStats',
+    params: function() { return []; },
     raw: request
   }
 }
@@ -64,6 +94,7 @@ function IStatsRequest(request) {
 function LiveStatsRequest(request) {
   return {
     type: 'LiveStats',
+    params: function() { return []; },
     raw: request
   }
 }
@@ -71,6 +102,17 @@ function LiveStatsRequest(request) {
 function DaxRequest(request) {
   return {
     type: 'DAx',
+    params: function() {
+      var params = [];
+      this._queryString().split('&').forEach(function(pair) {
+        var arr = pair.split('=');
+        params.push({key: arr[0], val: arr[1]});
+      });
+      return params;
+    },
+    _queryString: function() {
+      return this.raw.split('?')[1];
+    },
     raw: request
   }
 }
@@ -78,6 +120,7 @@ function DaxRequest(request) {
 function RdotRequest(request) {
   return {
     type: 'Rdot',
+    params: function() { return []; },
     raw: request
   }
 }

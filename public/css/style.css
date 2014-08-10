@@ -36,6 +36,26 @@ h1 {
   color: rgb(111, 208, 110);
 }
 
+#stats table.params {
+  font-size: 0.8em;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+#stats table.params th {
+  background-color: #ccc;
+  text-align: left;
+}
+
+#stats table.params th, #stats table.params td {
+  border: 1px solid #bbb;
+  padding: 0.5em;
+}
+
+#stats table.params tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
 #stats .stat .raw {
   font-size: 0.75em;
   color: #888;
