@@ -16,6 +16,10 @@ app.get('/', function(req, res) {
   res.render("index");
 });
 
+app.get('/ip/:ip', function(req, res) {
+  res.render("stats", { ip: req.params.ip } );
+});
+
 // iStatsAV / LiveStats
 respondTo('/o.gif');
 
@@ -31,6 +35,7 @@ respondTo('/e/**');
 
 function respondTo(route) {
   app.get(route, function(req, res) {
+    io.sockets.emit('ipconnection', { ip: req.ip });
     io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
     res.send(' ');
   });

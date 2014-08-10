@@ -2,9 +2,11 @@ doctype html
 html
   head
     title= "Stats Inspector"
-    script(src='/ipconnection.js')
+    script.
+      window.ip = '#{ip}';
+    script(src='/stats.js')
     script(src='/socket.io/socket.io.js')
   body
     h1 Stats Inspector
-    p IP addresses currently connecting:
-    ul#ips
+    p Stats will appear here.
+    #stats
