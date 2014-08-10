@@ -113,7 +113,19 @@ function IStatsRequest(request) {
 function LiveStatsRequest(request) {
   return {
     type: 'LiveStats',
-    params: function() { return []; },
+    params: function() {
+      var params = [];
+      var keysAndValues = this._queryString().split('~RS~');
+      keysAndValues.pop();
+      keysAndValues.shift();
+      for(var i = 0; i < keysAndValues.length - 1; i += 2) {
+        params.push({key: keysAndValues[i], val: keysAndValues[i+1]});
+      }
+      return params;
+    },
+    _queryString: function() {
+      return this.raw.split('?')[1];
+    },
     raw: request
   }
 }
