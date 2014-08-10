@@ -183,7 +183,28 @@ function DaxRequest(request) {
 function RdotRequest(request) {
   return {
     type: 'Rdot',
-    params: function() { return []; },
+    params: function() {
+      var queryString = this._queryString().split('?');
+      var parts = queryString[0].split('/');
+      var params = [
+        { key: 'Product', val: parts[0] },
+        { key: 'Device type', val: parts[1] },
+        { key: 'Component name', val: parts[2] },
+        { key: 'Component version', val: parts[3] },
+        { key: 'Programme ID', val: parts[4] },
+        { key: 'iStats ID', val: parts[5] },
+        { key: 'Event class', val: parts[6] },
+        { key: 'Detail', val: decodeURIComponent(parts[7]) }
+      ];
+      queryString[1].split('&').forEach(function(pair) {
+        var arr = pair.split('=');
+        params.push({key: arr[0], val: arr[1]});
+      });
+      return params;
+    },
+    _queryString: function() {
+      return this.raw.split('/e/')[1];
+    },
     raw: request
   }
 }
