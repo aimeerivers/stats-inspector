@@ -97,6 +97,7 @@ function StatsRequest(request) {
 function BasicRequest(request) {
   return {
     type: 'unknown',
+    headline: function() { return 'unknown'; },
     params: function() { return []; },
     raw: request
   }
@@ -105,6 +106,13 @@ function BasicRequest(request) {
 function IStatsRequest(request) {
   return {
     type: 'iStats',
+    headline: function() {
+      var params = this.params();
+      for (var i = 0; i < params.length; i++) {
+        if(params[i].key === 't')
+          return params[i].val;
+      }
+    },
     params: function() {
       if(this._cachedParams) {
         return this._cachedParams;
@@ -150,6 +158,13 @@ function IStatsRequest(request) {
 function LiveStatsRequest(request) {
   return {
     type: 'LiveStats',
+    headline: function() {
+      var params = this.params();
+      for (var i = 0; i < params.length; i++) {
+        if(params[i].key === 't')
+          return params[i].val;
+      }
+    },
     params: function() {
       if(this._cachedParams) {
         return this._cachedParams;
@@ -174,6 +189,18 @@ function LiveStatsRequest(request) {
 function DaxRequest(request) {
   return {
     type: 'DAx',
+    headline: function() {
+      var actionType = '';
+      var controlId = '';
+      var params = this.params();
+      for (var i = 0; i < params.length; i++) {
+        if(params[i].key === 'action_type')
+          actionType = params[i].val;
+        if(params[i].key === 'control_id')
+          controlId = params[i].val;
+      }
+      return [actionType, controlId].join(' ');
+    },
     params: function() {
       if(this._cachedParams) {
         return this._cachedParams;
@@ -196,6 +223,13 @@ function DaxRequest(request) {
 function RdotRequest(request) {
   return {
     type: 'Rdot',
+    headline: function() {
+      var params = this.params();
+      for (var i = 0; i < params.length; i++) {
+        if(params[i].key === 'Event class')
+          return params[i].val;
+      }
+    },
     params: function() {
       if(this._cachedParams) {
         return this._cachedParams;
