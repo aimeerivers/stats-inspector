@@ -9,11 +9,8 @@ window.onload = function() {
       if(data.ip === window.ip) {
         stats.push(data.stat);
         var html = document.createElement('div');
-        var ip = document.createElement('strong');
-        ip.innerHTML = data.ip;
         var content = document.createElement('p');
         content.innerHTML = data.stat;
-        html.appendChild(ip);
         html.appendChild(content);
         statsDiv.appendChild(html);
       }
