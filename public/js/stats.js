@@ -11,7 +11,7 @@ window.onload = function() {
         var holder = document.createElement('div');
         holder.className = 'stat ' + stat.type.toLowerCase();
 
-        var type = document.createElement('div');
+        var type = document.createElement('h2');
         type.className = 'type';
         type.innerHTML = stat.type;
         holder.appendChild(type);
@@ -41,12 +41,19 @@ window.onload = function() {
             row.appendChild(val);
             paramsTable.appendChild(row);
           }
+
+          var paramsHeader = document.createElement('h3');
+          paramsHeader.innerHTML = 'Parameters';
+          holder.appendChild(paramsHeader);
           holder.appendChild(paramsTable);
         }
 
         var raw = document.createElement('div');
         raw.className = 'raw';
         raw.innerHTML = stat.raw;
+        var rawHeader = document.createElement('h3');
+        rawHeader.innerHTML = 'Full request';
+        holder.appendChild(rawHeader);
         holder.appendChild(raw);
 
         statsDiv.appendChild(holder);
