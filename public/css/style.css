@@ -62,7 +62,8 @@ h1 {
 }
 
 #stats table.params th {
-  background-color: #ccc;
+  background-color: #444;
+  color: #fff;
   text-align: left;
 }
 
@@ -72,14 +73,13 @@ h1 {
 }
 
 #stats table.params tr:nth-child(odd) {
-  background-color: #fafafa;
+  background-color: #ccc;
 }
 
 #stats .stat .raw {
   font-size: 0.75em;
-  color: #888;
   padding: 0.5em;
-  background-color: #eee;
+  background-color: #ccc;
   border: 1px solid #bbb;
   overflow-wrap: break-word;
   margin-bottom: 1em;
