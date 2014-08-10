@@ -6,7 +6,7 @@ var server = app.listen(port);
 var io = require('socket.io').listen(server);
 
 app.use(logfmt.requestLogger());
-app.set('views', __dirname + '/tpl');
+app.set('views', __dirname + '/views');
 app.set('view engine', "jade");
 app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
