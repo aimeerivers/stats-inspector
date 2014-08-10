@@ -105,7 +105,39 @@ function BasicRequest(request) {
 function IStatsRequest(request) {
   return {
     type: 'iStats',
-    params: function() { return []; },
+    params: function() {
+      var rsParams = this._rsParams();
+      var queryParams = '';
+      for(var i = 0; i < rsParams.length; i++) {
+        if(rsParams[i].key == 'q') {
+          queryParams = rsParams[i].val;
+          break;
+        }
+      }
+      var standardParams = this._standardParams(queryParams);
+      return rsParams.concat(standardParams);
+    },
+    _standardParams: function(queryString) {
+      var params = [];
+      queryString.split('&').forEach(function(pair) {
+        var arr = pair.split('=');
+        params.push({key: arr[0], val: arr[1]});
+      });
+      return params;
+    },
+    _rsParams: function() {
+      var params = [];
+      var keysAndValues = this._queryString().split('~RS~');
+      keysAndValues.pop();
+      keysAndValues.shift();
+      for(var i = 0; i < keysAndValues.length - 1; i += 2) {
+        params.push({key: keysAndValues[i], val: keysAndValues[i+1]});
+      }
+      return params;
+    },
+    _queryString: function() {
+      return this.raw.split('?')[1];
+    },
     raw: request
   }
 }
