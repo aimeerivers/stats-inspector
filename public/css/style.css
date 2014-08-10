@@ -43,8 +43,17 @@ h1 {
 
 #stats .stat .headline {
   display: table-cell;
+  width: 350px;
   color: #aaa;
   vertical-align: middle;
+}
+
+#stats .stat .time {
+  display: table-cell;
+  vertical-align: middle;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: #555;
 }
 
 #stats .stat.istats .type {

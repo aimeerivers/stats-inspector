@@ -6,6 +6,7 @@ window.onload = function() {
   socket.on('newstats', function (data) {
     if(data.stat && data.ip) {
       if(data.ip === window.ip) {
+        var date = new Date();
         var stat = StatsRequest(data.stat);
 
         var holder = document.createElement('div');
@@ -31,6 +32,11 @@ window.onload = function() {
         headline.className = 'headline';
         headline.innerHTML = stat.headline();
         callout.appendChild(headline);
+
+        var time = document.createElement('div');
+        time.className = 'time';
+        time.innerHTML = date.toLocaleTimeString();
+        callout.appendChild(time);
 
         var toggler = document.createElement('div');
         toggler.className = 'toggle hidden';
