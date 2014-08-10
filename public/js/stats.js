@@ -121,7 +121,7 @@ function IStatsRequest(request) {
       var params = [];
       queryString.split('&').forEach(function(pair) {
         var arr = pair.split('=');
-        params.push({key: arr[0], val: arr[1]});
+        params.push({key: arr[0], val: decodeURIComponent(arr[1])});
       });
       return params;
     },
@@ -131,7 +131,7 @@ function IStatsRequest(request) {
       keysAndValues.pop();
       keysAndValues.shift();
       for(var i = 0; i < keysAndValues.length - 1; i += 2) {
-        params.push({key: keysAndValues[i], val: keysAndValues[i+1]});
+        params.push({key: keysAndValues[i], val: decodeURIComponent(keysAndValues[i+1])});
       }
       return params;
     },
@@ -151,7 +151,7 @@ function LiveStatsRequest(request) {
       keysAndValues.pop();
       keysAndValues.shift();
       for(var i = 0; i < keysAndValues.length - 1; i += 2) {
-        params.push({key: keysAndValues[i], val: keysAndValues[i+1]});
+        params.push({key: keysAndValues[i], val: decodeURIComponent(keysAndValues[i+1])});
       }
       return params;
     },
@@ -169,7 +169,7 @@ function DaxRequest(request) {
       var params = [];
       this._queryString().split('&').forEach(function(pair) {
         var arr = pair.split('=');
-        params.push({key: arr[0], val: arr[1]});
+        params.push({key: arr[0], val: decodeURIComponent(arr[1])});
       });
       return params;
     },
@@ -187,18 +187,18 @@ function RdotRequest(request) {
       var queryString = this._queryString().split('?');
       var parts = queryString[0].split('/');
       var params = [
-        { key: 'Product', val: parts[0] },
-        { key: 'Device type', val: parts[1] },
-        { key: 'Component name', val: parts[2] },
-        { key: 'Component version', val: parts[3] },
-        { key: 'Programme ID', val: parts[4] },
-        { key: 'iStats ID', val: parts[5] },
-        { key: 'Event class', val: parts[6] },
+        { key: 'Product', val: decodeURIComponent(parts[0]) },
+        { key: 'Device type', val: decodeURIComponent(parts[1]) },
+        { key: 'Component name', val: decodeURIComponent(parts[2]) },
+        { key: 'Component version', val: decodeURIComponent(parts[3]) },
+        { key: 'Programme ID', val: decodeURIComponent(parts[4]) },
+        { key: 'iStats ID', val: decodeURIComponent(parts[5]) },
+        { key: 'Event class', val: decodeURIComponent(parts[6]) },
         { key: 'Detail', val: decodeURIComponent(parts[7]) }
       ];
       queryString[1].split('&').forEach(function(pair) {
         var arr = pair.split('=');
-        params.push({key: arr[0], val: arr[1]});
+        params.push({key: arr[0], val: decodeURIComponent(arr[1])});
       });
       return params;
     },
