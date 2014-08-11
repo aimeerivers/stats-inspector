@@ -10,7 +10,7 @@ window.onload = function() {
         ips.push(data.ip);
         var html = document.createElement('li');
         var anchor = document.createElement('a');
-        anchor.href = '/ip/' + data.ip;
+        anchor.href = '/stats-inspector/ip/' + data.ip;
         anchor.innerHTML = data.ip;
         html.appendChild(anchor);
         ipsUl.appendChild(html);

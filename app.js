@@ -12,11 +12,11 @@ app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
 app.enable('trust proxy');
 
-app.get('/', function(req, res) {
+app.get('/stats-inspector/', function(req, res) {
   res.render("index");
 });
 
-app.get('/ip/:ip', function(req, res) {
+app.get('/stats-inspector/ip/:ip', function(req, res) {
   res.render("stats", { ip: req.params.ip } );
 });
 
