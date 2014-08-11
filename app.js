@@ -25,6 +25,7 @@ respondTo('/o.gif');
 
 // DAx
 respondTo('/bbc/int/s');
+respondTo('/bbc/test/s');
 respondTo('/bbc/bbc/s');
 
 // Echo
