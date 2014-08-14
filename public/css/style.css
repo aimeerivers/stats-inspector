@@ -68,6 +68,10 @@ h1 {
   color: rgb(254, 174, 5);
 }
 
+#stats .stat.echo .type {
+  color: silver;
+}
+
 #stats .stat.rdot .type {
   color: rgb(111, 208, 110);
 }

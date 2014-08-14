@@ -100,8 +100,13 @@ function StatsRequest(request) {
       return LiveStatsRequest(request);
   }
 
-  if(request.indexOf('/bbc/int/s') === 0 || request.indexOf('/bbc/bbc/s') === 0)
+  if(request.indexOf('/bbc/int/s') === 0
+    || request.indexOf('/bbc/test/s') === 0
+    || request.indexOf('/bbc/bbc/s') === 0)
     return DaxRequest(request);
+
+  if(request.indexOf('/bbc/nkdata/s') === 0)
+    return EchoRequest(request);
 
   if(request.indexOf('/e/') === 0)
     return RdotRequest(request);
@@ -215,6 +220,35 @@ function DaxRequest(request) {
           controlId = params[i].val;
       }
       return [actionType, controlId].join(' - ');
+    },
+    params: function() {
+      if(this._cachedParams) {
+        return this._cachedParams;
+      }
+      var params = [];
+      this._queryString().split('&').forEach(function(pair) {
+        var arr = pair.split('=');
+        params.push({key: arr[0], val: decodeURIComponent(arr[1])});
+      });
+      this._cachedParams = params;
+      return params;
+    },
+    _queryString: function() {
+      return this.raw.split('?')[1];
+    },
+    raw: request
+  }
+}
+
+function EchoRequest(request) {
+  return {
+    type: 'Echo',
+    headline: function() {
+      var params = this.params();
+      for (var i = 0; i < params.length; i++) {
+        if(params[i].key === 'echo_event')
+          return params[i].val;
+      }
     },
     params: function() {
       if(this._cachedParams) {
