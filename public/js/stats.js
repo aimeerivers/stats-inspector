@@ -94,10 +94,11 @@ window.onload = function() {
 
 function StatsRequest(request) {
   if(request.indexOf('/o.gif') === 0) {
-    if(request.indexOf('~RS~q~RS~0~') === -1)
-      return IStatsRequest(request);
-    else
+    var search = request.search(/~RS~t~RS~\w{4}_\w{1,10}~/);
+    if(search >= 1)
       return LiveStatsRequest(request);
+    else
+      return IStatsRequest(request);
   }
 
   if(request.indexOf('/bbc/int/s') === 0
