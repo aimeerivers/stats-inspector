@@ -9,6 +9,9 @@ var mongo = require('mongodb');
 var monk = require('monk');
 var db = monk('localhost:27017/stats-inspector');
 
+var statsmodel = require('./public/js/models/stats.js');
+var merge = require('merge');
+
 app.use(logfmt.requestLogger());
 app.set('views', __dirname + '/views');
 app.set('view engine', "jade");
@@ -47,11 +50,14 @@ respondTo('/e/**');
 
 function respondTo(route) {
   app.get(route, function(req, res) {
+    var stat = statsmodel.StatsRequest(req.url);
+    var params = {};
+    var statparams = stat.params();
+    for(var i = 0; i < statparams.length; i++) {
+      params[statparams[i].key] = statparams[i].val;
+    }
     var collection = db.get('statscollection');
-    collection.insert({
-      ip: req.ip,
-      url: req.url
-    }, function(err, doc) {
+    collection.insert(merge({ip: req.ip, type: stat.type, url: stat.raw}, params), function(err, doc) {
       if(err) {
         res.send("There was a problem adding the information to the database.");
       } else {

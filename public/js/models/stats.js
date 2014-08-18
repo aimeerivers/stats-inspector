@@ -240,3 +240,5 @@ function RdotRequest(request) {
     raw: request
   }
 }
+
+module.exports.StatsRequest = StatsRequest;

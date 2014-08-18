@@ -5,5 +5,7 @@ html
   body
     ul
       each stat, i in stats
-        li= stat.url
+        li
+          = stat.type
+          = stat._id.getTimestamp()
 
