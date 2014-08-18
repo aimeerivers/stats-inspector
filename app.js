@@ -27,18 +27,25 @@ app.get('/', function(req, res) {
 });
 
 app.get('/stats/ip/:ip', function(req, res) {
-  var collection = db.get('statscollection');
-  collection.find({ip: req.params.ip}, {}, function(e, stats) {
-    res.send(stats);
-  });
+  searchAndRespond({ip: req.params.ip}, res);
 });
 
 app.get('/stats/ip/:ip/type/:type', function(req, res) {
+  searchAndRespond({ip: req.params.ip, type: req.params.type}, res);
+});
+
+app.get('/stats/ip/:ip/type/:type/:key/:val', function(req, res) {
+  var params = {ip: req.params.ip, type: req.params.type};
+  params[req.params.key] = req.params.val;
+  searchAndRespond(params, res);
+});
+
+function searchAndRespond(params, res) {
   var collection = db.get('statscollection');
-  collection.find({ip: req.params.ip, type: req.params.type}, {}, function(e, stats) {
+  collection.find(params, {}, function(e, stats) {
     res.send(stats);
   });
-});
+}
 
 app.get('/stats-inspector/', function(req, res) {
   res.render("index");
