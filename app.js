@@ -26,6 +26,13 @@ app.get('/', function(req, res) {
   });
 });
 
+app.get('/stats/ip/:ip', function(req, res) {
+  var collection = db.get('statscollection');
+  collection.find({ip: req.params.ip}, {}, function(e, stats) {
+    res.send(stats);
+  });
+});
+
 app.get('/stats-inspector/', function(req, res) {
   res.render("index");
 });
