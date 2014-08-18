@@ -33,6 +33,13 @@ app.get('/stats/ip/:ip', function(req, res) {
   });
 });
 
+app.get('/stats/ip/:ip/type/:type', function(req, res) {
+  var collection = db.get('statscollection');
+  collection.find({ip: req.params.ip, type: req.params.type}, {}, function(e, stats) {
+    res.send(stats);
+  });
+});
+
 app.get('/stats-inspector/', function(req, res) {
   res.render("index");
 });
