@@ -30,6 +30,17 @@ app.get('/stats/ip/:ip', function(req, res) {
   searchAndRespond({ip: req.params.ip}, res);
 });
 
+app.delete('/stats/ip/:ip', function(req, res) {
+  var collection = db.get('statscollection');
+  collection.remove({ip: req.params.ip}, function(err) {
+    if(err) {
+      res.send("There was a problem adding the information to the database.");
+    } else {
+      res.send(204);
+    }
+  });
+});
+
 app.get('/stats/ip/:ip/type/:type', function(req, res) {
   searchAndRespond({ip: req.params.ip, type: req.params.type}, res);
 });
