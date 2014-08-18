@@ -5,12 +5,23 @@ var port = Number(process.env.PORT || 5000);
 var server = app.listen(port);
 var io = require('socket.io').listen(server);
 
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/stats-inspector');
+
 app.use(logfmt.requestLogger());
 app.set('views', __dirname + '/views');
 app.set('view engine', "jade");
 app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
 app.enable('trust proxy');
+
+app.get('/', function(req, res) {
+  var collection = db.get('statscollection');
+  collection.find({}, {}, function(e, stats) {
+    res.render("thing", { "stats" : stats });
+  });
+});
 
 app.get('/stats-inspector/', function(req, res) {
   res.render("index");
@@ -36,12 +47,22 @@ respondTo('/e/**');
 
 function respondTo(route) {
   app.get(route, function(req, res) {
-    io.sockets.emit('ipconnection', { ip: req.ip });
-    io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
-    var img = new Buffer(35);
-    img.write("R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=", "base64");
-    res.writeHead(200, {'Content-Type': 'image/gif' });
-    res.end(img, 'binary');
+    var collection = db.get('statscollection');
+    collection.insert({
+      ip: req.ip,
+      url: req.url
+    }, function(err, doc) {
+      if(err) {
+        res.send("There was a problem adding the information to the database.");
+      } else {
+        io.sockets.emit('ipconnection', { ip: req.ip });
+        io.sockets.emit('newstats', { ip: req.ip, stat: req.url });
+        var img = new Buffer(35);
+        img.write("R0lGODlhAQABAIAAAP///wAAACwAAAAAAQABAAACAkQBADs=", "base64");
+        res.writeHead(200, {'Content-Type': 'image/gif' });
+        res.end(img, 'binary');
+      }
+    });
   });
 }
 
