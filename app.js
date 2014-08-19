@@ -51,6 +51,13 @@ app.get('/stats/ip/:ip/type/:type/:key/:val', function(req, res) {
   searchAndRespond(params, res);
 });
 
+app.get('/stats/ip/:ip/type/:type/:key/:val/:key2/:val2', function(req, res) {
+  var params = {ip: req.params.ip, type: req.params.type};
+  params[req.params.key] = req.params.val;
+  params[req.params.key2] = req.params.val2;
+  searchAndRespond(params, res);
+});
+
 function searchAndRespond(params, res) {
   var collection = db.get('statscollection');
   collection.find(params, {}, function(e, stats) {
