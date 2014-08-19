@@ -1,10 +1,9 @@
 function StatsRequest(request) {
   if(request.indexOf('/o.gif') === 0) {
-    var search = request.search(/~RS~t~RS~\w{4}_\w{1,10}~/);
-    if(search >= 1)
-      return LiveStatsRequest(request);
-    else
+    if(request.indexOf('~RS~q~RS~0~') === -1)
       return IStatsRequest(request);
+    else
+      return LiveStatsRequest(request);
   }
 
   if(request.indexOf('/bbc/int/s') === 0
@@ -98,30 +97,6 @@ function LiveStatsRequest(request) {
       if(this._cachedParams) {
         return this._cachedParams;
       }
-      var rsParams = this._rsParams();
-      var queryParams = '';
-      for(var i = 0; i < rsParams.length; i++) {
-        if(rsParams[i].key == 'q') {
-          queryParams = rsParams[i].val;
-          break;
-        }
-      }
-      var standardParams = this._standardParams(queryParams);
-      var params = rsParams.concat(standardParams);
-      this._cachedParams = params;
-      return params;
-    },
-    _standardParams: function(queryString) {
-      if(queryString === '0')
-        return [];
-      var params = [];
-      queryString.split('&').forEach(function(pair) {
-        var arr = pair.split('=');
-        params.push({key: arr[0], val: decodeURIComponent(arr[1])});
-      });
-      return params;
-    },
-    _rsParams: function() {
       var params = [];
       var keysAndValues = this._queryString().split('~RS~');
       keysAndValues.pop();
@@ -129,6 +104,7 @@ function LiveStatsRequest(request) {
       for(var i = 0; i < keysAndValues.length - 1; i += 2) {
         params.push({key: keysAndValues[i], val: decodeURIComponent(keysAndValues[i+1])});
       }
+      this._cachedParams = params;
       return params;
     },
     _queryString: function() {
