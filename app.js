@@ -76,12 +76,11 @@ app.get('/stats-inspector/ip/:ip', function(req, res) {
 // iStatsAV / LiveStats
 respondTo('/o.gif');
 
-// DAx
+// DAx / Echo
 respondTo('/bbc/int/s');
 respondTo('/bbc/test/s');
+respondTo('/bbc/stage/s');
 respondTo('/bbc/bbc/s');
-
-// Echo
 respondTo('/bbc/nkdata/s');
 
 // Rdot
@@ -96,8 +95,19 @@ function respondTo(route) {
       params[statparams[i].key] = statparams[i].val;
     }
     var collection = db.get('statscollection');
-    collection.insert(merge({ip: req.ip, type: stat.type, url: stat.raw}, params), function(err, doc) {
+    var allparams = merge({ip: req.ip, type: stat.type, url: stat.raw}, params);
+    var keys = Object.keys(allparams);
+    for(var i = 0; i < keys.length; i++) {
+      if(keys[i].indexOf('.') > 0) {
+        allparams[keys[i].replace(/\./g, '_')] = allparams[keys[i]];
+        delete allparams[keys[i]];
+      }
+    }
+
+    collection.insert(allparams, function(err, doc) {
       if(err) {
+        console.log("Error writing to database");
+        console.log(allparams);
         res.send("There was a problem adding the information to the database.");
       } else {
         io.sockets.emit('ipconnection', { ip: req.ip });
