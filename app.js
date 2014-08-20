@@ -19,13 +19,6 @@ app.engine('jade', require('jade').__express);
 app.use(express.static(__dirname + '/public'));
 app.enable('trust proxy');
 
-app.get('/', function(req, res) {
-  var collection = db.get('statscollection');
-  collection.find({}, {}, function(e, stats) {
-    res.render("thing", { "stats" : stats });
-  });
-});
-
 app.get('/stats/ip/:ip', function(req, res) {
   searchAndRespond({ip: req.params.ip}, res);
 });
