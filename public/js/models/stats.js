@@ -11,7 +11,7 @@ function StatsRequest(request) {
     || request.indexOf('/bbc/stage/s') === 0
     || request.indexOf('/bbc/bbc/s') === 0
     || request.indexOf('/bbc/nkdata/s') === 0) {
-    if(request.indexOf('echo_as3=echo_as3') > 0 || request.indexOf('ml_name=echo_js') > 0)
+    if(request.indexOf('ml_name=echo_as3') > 0 || request.indexOf('ml_name=echo_js') > 0)
       return EchoRequest(request);
     else
       return DaxRequest(request);
