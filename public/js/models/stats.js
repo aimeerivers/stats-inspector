@@ -20,6 +20,10 @@ function StatsRequest(request) {
   if(request.indexOf('/e/') === 0)
     return RdotRequest(request);
 
+  if(request.indexOf('/j0=') === 0) {
+      return KantarRequest(request);
+  }
+
   return BasicRequest(request);
 }
 
@@ -218,6 +222,15 @@ function RdotRequest(request) {
     },
     raw: request
   }
+}
+
+function KantarRequest(request) {
+    return {
+        type: 'Kantar',
+        headline: function() { return 'unknown'; },
+        params: function() { return []; },
+        raw: request
+    }
 }
 
 module.exports.StatsRequest = StatsRequest;
