@@ -225,10 +225,113 @@ function RdotRequest(request) {
 }
 
 function KantarRequest(request) {
+
+    function annotateLabels(label) {
+        if(label == 'sx') {
+            return '<b>sx</b><br>video width';
+        }
+        if(label == 'sy') {
+            return '<b>sy</b><br>video height';
+        }
+        if(label == 'vt') {
+            return '<b>vt</b><br>view time [secs]';
+        }
+        if(label == 'cq') {
+            return '<b>cq</b><br>programme id';
+        }
+        if(label == 'dur') {
+            return '<b>dur</b><br>duration [secs]';
+        }
+        if(label == 'duration') {
+            return '<b>duration</b><br>duration [secs]';
+        }
+        if(label == 'stream') {
+            return '<b>stream</b><br>stream name';
+        }
+        if(label == 'uid') {
+            return '<b>uid</b><br>unique id';
+        }
+        return label;
+    }
+
     return {
         type: 'Kantar',
-        headline: function() { return 'unknown'; },
-        params: function() { return []; },
+        headline: function() { return 'heartbeat'; },
+        params: function() {
+          if(this._cachedParams) {
+            return this._cachedParams;
+          }
+          var params = [];
+
+          // parse system object
+          var systemObject = this._queryString().split('j0=,,,')[1].split(';+,')[0];
+          params.push({key: 'SYSTEM OBJECT', val: ''});
+
+          systemObject.split('+').forEach(function(pair) {
+            var arr = pair.split('=');
+            if(arr[0] == 'sx') {
+                arr[0] = '<b>sx</b><br>screen width';
+            }
+            if(arr[0] == 'sy') {
+                arr[0] = '<b>sx</b><br>screen height';
+            }
+            if(arr[0] == 'pl') {
+                arr[0] = '<b>pl</b><br>player name';
+            }
+            if(arr[0] == 'plv') {
+                arr[0] = '<b>plv</b><br>player version';
+            }
+            params.push({key: arr[0], val: decodeURIComponent(arr[1])});
+          });
+
+          // parse usage information
+          var left = this._queryString().indexOf(';+,') + 3;
+          var right =  this._queryString().indexOf(';;;');
+          var usageInformation = this._queryString().substring(left, right);
+
+          params.push({key: 'USAGE INFO OBJECT', val: ''});
+
+          //before pst
+          var beforePst = usageInformation.substring(0,usageInformation.indexOf('pst=') - 1);
+          beforePst.split('+').forEach(function(pair) {
+            if (pair == '') {
+                return;
+            }
+            var arr = pair.split('=');
+            arr[0] = annotateLabels(arr[0]);
+            params.push({key: arr[0], val: decodeURIComponent(arr[1])});
+          });
+
+         // pst
+         var pst = this._queryString().substring(this._queryString().indexOf('pst=') + 5,this._queryString().indexOf(';;') + 1);
+         var splittablePst = pst.replace(/;/g,',');
+         var intervalString = '<hr>';
+         var pstSets = splittablePst.split(',');
+         pstSets.forEach(function(pair) {
+             if (pair == '+' || pair == '') {
+                return;
+            } else {
+                var intervalData = pair.split('+');
+                intervalString += 'start: ' + intervalData[0] + '<br>end: ' + intervalData[1] + '<br>timestamp: ' + intervalData[2] + '<hr>';
+            }
+
+         });
+         params.push({key: '<b>pst</b>' + '<br>play state', val: intervalString});
+
+         // after pst
+         var afterPst = usageInformation.substring(usageInformation.indexOf(';;') + 3);
+         afterPst.split('+').forEach(function(pair) {
+           var arr = pair.split('=');
+           arr[0] = annotateLabels(arr[0]);
+           params.push({key: arr[0], val: decodeURIComponent(arr[1])});
+         });
+
+          this._cachedParams = params;
+          return params;
+        },
+        _queryString: function() {
+          return this.raw;
+        },
         raw: request
     }
 }
