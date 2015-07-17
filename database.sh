@@ -1,2 +1,2 @@
 #!/bin/bash
-mongod --dbpath data &
+mongod --dbpath data
