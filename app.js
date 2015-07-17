@@ -76,6 +76,9 @@ respondTo('/bbc/stage/s');
 respondTo('/bbc/bbc/s');
 respondTo('/bbc/nkdata/s');
 
+// Kantar / BARB
+respondTo('/j0=**');
+
 // Rdot
 respondTo('/e/**');
 

@@ -6,6 +6,11 @@ h1 {
   border-bottom: 3px double black;
 }
 
+hr {
+    border-top: 1px solid #454545;
+    border-bottom: none;
+}
+
 #stats {
   border-bottom: 1px solid #bbb;
 }
@@ -69,11 +74,15 @@ h1 {
 }
 
 #stats .stat.echo .type {
-  color: silver;
+  color: rgb(85,106,60);
 }
 
 #stats .stat.rdot .type {
   color: rgb(111, 208, 110);
+}
+
+#stats .stat.kantar .type {
+  color: rgb(250,24,191);
 }
 
 #stats .toggle.hidden {
