@@ -273,7 +273,7 @@ function KantarRequest(request) {
                 arr[0] = '<b>sx</b><br>screen width';
             }
             if(arr[0] == 'sy') {
-                arr[0] = '<b>sx</b><br>screen height';
+                arr[0] = '<b>sy</b><br>screen height';
             }
             if(arr[0] == 'pl') {
                 arr[0] = '<b>pl</b><br>player name';
