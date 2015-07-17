@@ -5,9 +5,14 @@ var port = Number(process.env.PORT || 80);
 var server = app.listen(port);
 var io = require('socket.io').listen(server);
 
+
+console.log('XXXXXX');
+
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/stats-inspector');
+//var db = monk('localhost:27017/stats-inspector');
+var db = monk('heroku_z267b1qr:f211tfgkikumdhbm6cb15cnqpd@ds047792.mongolab.com:47792/heroku_z267b1qr');
+console.log(db);
 
 var statsmodel = require('./public/js/models/stats.js');
 var merge = require('merge');
