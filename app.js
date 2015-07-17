@@ -7,7 +7,7 @@ var io = require('socket.io').listen(server);
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/stats-inspector');
+var db = monk(process.env.MONGO_CONNECTION);
 
 var statsmodel = require('./public/js/models/stats.js');
 var merge = require('merge');
