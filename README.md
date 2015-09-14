@@ -30,3 +30,38 @@ Edit your `/etc/hosts` file if on a Mac or Linux machine, and override these com
 ## Usage
 
 In your browser, head to `http://localhost/stats-inspector`. Load and interact with an SMP. You should see your ip address listed. Click it to see the stats being sent from that IP.
+
+## Using with heroku
+
+There is an instance of stats-inspector at `http://smp-stats.herokuapp.com/stats-inspector`
+
+To use it, please set up Charles Proxy to map remote.
+
+In Charles Proxy, click Tools -> Map Remote ...
+
+Enable Map Remote and add the following mappings:
+
+| From | To |
+|---|---|
+| stats.bbc.co.uk | smp-stats.herokuapp.com |
+| test.stats.bbc.co.uk | smp-stats.herokuapp.com |
+| test.stats.bbc.co.uk | smp-stats.herokuapp.com |
+| sa.bbc.co.uk | smp-stats.herokuapp.com |
+| r.test.bbci.co.uk | smp-stats.herokuapp.com |
+| r.bbci.co.uk | smp-stats.herokuapp.com |
+| bbcdotcomtest.2cnt.net | smp-stats.herokuapp.com |
+| bbcdotcom.2cnt.net | smp-stats.herokuapp.com |
+| bbcandroidtest.2cnt.net | smp-stats.herokuapp.com |
+| bbcandroid.2cnt.net | smp-stats.herokuapp.com |
+
+Now go to Proxy -> SSL Proxying Settings
+
+Enable SSL Proxying
+
+Add smp-stats.herokuapp.com with port 80.
+
+Now visit `http://smp-stats.herokuapp.com/stats-inspector`
+
+Interact with an SMP somewhere, such that stats will be generated.
+
+Look for your IP address to come up on stats-inspector.
