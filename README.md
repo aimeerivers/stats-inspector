@@ -45,7 +45,6 @@ Enable Map Remote and add the following mappings:
 |---|---|
 | stats.bbc.co.uk | smp-stats.herokuapp.com |
 | test.stats.bbc.co.uk | smp-stats.herokuapp.com |
-| test.stats.bbc.co.uk | smp-stats.herokuapp.com |
 | sa.bbc.co.uk | smp-stats.herokuapp.com |
 | r.test.bbci.co.uk | smp-stats.herokuapp.com |
 | r.bbci.co.uk | smp-stats.herokuapp.com |
