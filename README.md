@@ -33,7 +33,7 @@ In your browser, head to `http://localhost/stats-inspector`. Load and interact w
 
 ## Using with heroku
 
-There is an instance of stats-inspector at `http://smp-stats.herokuapp.com/stats-inspector`
+There is an instance of stats-inspector at http://smp-stats.herokuapp.com/stats-inspector
 
 To use it, please set up Charles Proxy to map remote.
 
@@ -60,7 +60,7 @@ Enable SSL Proxying
 
 Add smp-stats.herokuapp.com with port 80.
 
-Now visit `http://smp-stats.herokuapp.com/stats-inspector`
+Now visit http://smp-stats.herokuapp.com/stats-inspector
 
 Interact with an SMP somewhere, such that stats will be generated.
 
