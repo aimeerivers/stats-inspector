@@ -72,15 +72,19 @@ Everything that happens in the stats-inspector is also logged to a mongodb datab
 You can query the database like this (example given for the instance on heroku)
 
 All stats recorded for IP address 132.185.153.7
+
 GET http://smp-stats.herokuapp.com/stats/ip/132.185.153.7
 
 ... with type DAx
+
 GET http://smp-stats.herokuapp.com/stats/ip/132.185.153.7/type/DAx
 
 ... that are clicks on the call to action
+
 GET http://smp-stats.herokuapp.com/stats/ip/132.185.153.7/type/DAx/action_type/click/control_id/call_to_action
 
 ... using SMPFlash
+
 GET http://smp-stats.herokuapp.com/stats/ip/132.185.153.7/type/DAx/action_type/click/control_id/call_to_action/mediaplayer_name/SMPFlash
 
 You can chain together as many keys and values as you wish to filter the results down and see how many times that call was made.
